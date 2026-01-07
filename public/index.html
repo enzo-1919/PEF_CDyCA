@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Periodización Rugby</title>
-    
     <style>
         * {
             margin: 0;
@@ -35,13 +34,13 @@
         h1 {
             color: #1a5f1a;
             margin-bottom: 10px;
-            font-size: 32px;
+            font-size: 28px;
         }
 
         .subtitle {
             color: #2d8b2d;
             margin-bottom: 30px;
-            font-size: 23px;
+            font-size: 18px;
             font-weight: bold;
         }
 
@@ -124,6 +123,7 @@
 </head>
 <body>
     <div class="container">
+        <div class="rugby-ball"></div>
         <h1>Periodización del Entrenamiento</h1>
         <p class="subtitle">de la Fuerza - Rugby</p>
         
@@ -140,19 +140,21 @@
     </div>
 
     <script>
+        // URL del servidor backend
         const API_URL = 'https://pef-2pzu.onrender.com/api';
-        // Cargar usuarios desde el archivo usuarios.json
+
+        // Cargar usuarios desde el servidor
         async function cargarUsuarios() {
             try {
-                const response = await fetch('usuarios.json');
+                const response = await fetch(`${API_URL}/usuarios`);
                 if (!response.ok) {
-                    throw new Error('No se pudo cargar usuarios.json');
+                    throw new Error('No se pudo cargar usuarios');
                 }
                 const usuarios = await response.json();
                 return usuarios;
             } catch (error) {
                 console.error('Error al cargar usuarios:', error);
-                alert('Error: No se pudo cargar el archivo usuarios.json. Asegúrate de que existe en la misma carpeta.');
+                alert('Error: No se pudo conectar con el servidor. Asegúrate de que el servidor está corriendo.');
                 return [];
             }
         }
@@ -164,7 +166,7 @@
             const nombreUsuario = document.getElementById('usuario').value.trim();
             const errorMsg = document.getElementById('error');
             
-            // Cargar usuarios desde JSON
+            // Cargar usuarios desde el servidor
             const usuarios = await cargarUsuarios();
             
             if (usuarios.length === 0) {
@@ -197,32 +199,6 @@
                 }, 3000);
             }
         });
-
-        // Cargar tablas desde tablas.json al iniciar
-        async function inicializarTablas() {
-            try {
-                const response = await fetch('tablas.json');
-                if (response.ok) {
-                    const tablas = await response.json();
-                    // Solo inicializar si no hay datos previos
-                    if (!localStorage.getItem('tablas')) {
-                        localStorage.setItem('tablas', JSON.stringify(tablas));
-                    }
-                }
-            } catch (error) {
-                console.error('Error al cargar tablas.json:', error);
-                // Inicializar con estructura vacía si no existe el archivo
-                if (!localStorage.getItem('tablas')) {
-                    localStorage.setItem('tablas', JSON.stringify({
-                        generales: [],
-                        individuales: {}
-                    }));
-                }
-            }
-        }
-
-        // Inicializar al cargar la página
-        inicializarTablas();
     </script>
 </body>
 </html>

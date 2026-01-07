@@ -178,6 +178,7 @@
             padding: 15px;
             cursor: pointer;
             transition: all 0.3s;
+            position: relative;
         }
 
         .tabla-card:hover {
@@ -194,6 +195,13 @@
         .tabla-card p {
             color: #666;
             font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .tabla-card .btn-eliminar-card {
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
         }
 
         @media print {
@@ -251,7 +259,7 @@
             <button class="btn btn-secondary" onclick="guardarTabla()">Guardar Cambios</button>
             <button class="btn-danger btn" onclick="cerrarEditor()">Cerrar Editor</button>
             <button class="btn" onclick="descargarPDFAdmin()">Descargar PDF</button>
-            <br></br>
+
             <div id="contenedorListas"></div>
         </div>
     </div>
