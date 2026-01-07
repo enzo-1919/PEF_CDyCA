@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Periodización Rugby</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a5f1a 0%, #2d8b2d 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .btn-logout {
+            background: white;
+            color: #1a5f1a;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #1a5f1a;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: #2d8b2d;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #1a5f1a;
+        }
+
+        .btn-secondary {
+            background: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #444;
+        }
+
+        .btn-danger {
+            background: #d32f2f;
+        }
+
+        .btn-danger:hover {
+            background: #b71c1c;
+        }
+
+        .lista {
+            margin-bottom: 20px;
+            border: 2px solid #2d8b2d;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .lista-header {
+            background: #2d8b2d;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #1a5f1a;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .semana-input {
+            width: 100%;
+        }
+
+        .semana-datos input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .editor-container {
+            display: none;
+        }
+
+        .tablas-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .tabla-card {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tabla-card:hover {
+            border-color: #2d8b2d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .tabla-card h3 {
+            color: #1a5f1a;
+            margin-bottom: 10px;
+        }
+
+        .tabla-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media print {
+            .header, .panel, .btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="admin-title">Panel de Administración - Rugby</div>
+            <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Panel de creación de nueva tabla -->
+        <div class="panel" id="panelCreacion">
+            <h2>Crear Nueva Tabla</h2>
+            
+            <div class="form-group">
+                <label>Tipo de tabla</label>
+                <select id="tipoTabla" onchange="mostrarCampoUsuario()">
+                    <option value="general">Tabla General</option>
+                    <option value="individual">Tabla Individual</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="campoUsuario" style="display:none;">
+                <label>Usuario</label>
+                <select id="usuarioDestino"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Nombre de la tabla</label>
+                <input type="text" id="nombreTabla" placeholder="Ej: Fuerza Máxima">
+            </div>
+
+            <button class="btn" onclick="crearNuevaTabla()">Crear Tabla</button>
+        </div>
+
+        <!-- Panel de tablas existentes -->
+        <div class="panel">
+            <h2>Tablas Existentes</h2>
+            <div class="tablas-list" id="tablasExistentes"></div>
+        </div>
+
+        <!-- Editor de tabla -->
+        <div class="panel editor-container" id="editorTabla">
+            <h2>Editar Tabla: <span id="nombreTablaEditor"></span></h2>
+            
+            <button class="btn" onclick="agregarLista()">+ Agregar Lista</button>
+            <button class="btn btn-secondary" onclick="guardarTabla()">Guardar Cambios</button>
+            <button class="btn-danger btn" onclick="cerrarEditor()">Cerrar Editor</button>
+            <button class="btn" onclick="descargarPDFAdmin()">Descargar PDF</button>
+            <br></br>
+            <div id="contenedorListas"></div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

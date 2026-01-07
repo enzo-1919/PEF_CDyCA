@@ -1,0 +1,18 @@
+[
+  {
+    "nombre": "Marcos",
+    "tipo": "admin"
+  },
+  {
+    "nombre": "Enzo",
+    "tipo": "admin"
+  },
+  {
+    "nombre": "Pratto",
+    "tipo": "user"
+  }, 
+  {
+    "nombre": "Chipa",
+    "tipo": "user"
+  }
+]
