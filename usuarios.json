@@ -1,18 +1,27 @@
 [
-  {
-    "nombre": "Marcos",
-    "tipo": "admin"
-  },
-  {
-    "nombre": "Enzo",
-    "tipo": "admin"
-  },
-  {
-    "nombre": "Pratto",
-    "tipo": "user"
-  }, 
-  {
-    "nombre": "Chipa",
-    "tipo": "user"
-  }
+  {"nombre": "Marcos","tipo": "admin"},
+  {"nombre": "Enzo","tipo": "admin"},
+  {"nombre": "Pratto","tipo": "user"}, 
+  {"nombre": "Chipa","tipo": "user"}, 
+  {"nombre": "Benja","tipo": "user"}, 
+  {"nombre": "Cristian","tipo": "user"}, 
+  {"nombre": "Juanpa","tipo": "user"}, 
+  {"nombre": "Leo","tipo": "user"}, 
+  {"nombre": "Lolo","tipo": "user"}, 
+  {"nombre": "Maydana","tipo": "user"}, 
+  {"nombre": "Mario","tipo": "user"}, 
+  {"nombre": "Richard","tipo": "user"}, 
+  {"nombre": "Anto","tipo": "user"}, 
+  {"nombre": "Bastian","tipo": "user"}, 
+  {"nombre": "Brenda","tipo": "user"}, 
+  {"nombre": "Junior","tipo": "user"}, 
+  {"nombre": "Daniel","tipo": "user"}, 
+  {"nombre": "Eze","tipo": "user"}, 
+  {"nombre": "Fabrizio","tipo": "user"}, 
+  {"nombre": "Ahumada","tipo": "user"}, 
+  {"nombre": "Gaston","tipo": "user"}, 
+  {"nombre": "Lorenzo","tipo": "user"}, 
+  {"nombre": "Luciano","tipo": "user"}, 
+  {"nombre": "Pulpi","tipo": "user"}, 
+  {"nombre": "Valen","tipo": "user"}
 ]

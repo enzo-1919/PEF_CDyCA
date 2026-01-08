@@ -5,198 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuario - Periodización Rugby</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1a5f1a 0%, #2d8b2d 100%);
-            color: white;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .user-info {
-            font-size: 18px;
-        }
-
-        .btn-logout {
-            background: white;
-            color: #1a5f1a;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-
-        .btn-logout:hover {
-            transform: scale(1.05);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 20px;
-        }
-
-        .selector-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            color: #333;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            background: white;
-        }
-
-        .tabla-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            display: none;
-        }
-
-        .tabla-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            color: #1a5f1a;
-        }
-
-        .btn-pdf {
-            background: #2d8b2d;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .lista {
-            margin-bottom: 30px;
-            border: 2px solid #2d8b2d;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .lista-titulo {
-            background: #2d8b2d;
-            color: white;
-            padding: 15px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #1a5f1a;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        tr:hover {
-            background: #f5f5f5;
-        }
-
-        .ejercicio-nombre {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .datos-semana {
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .no-tabla {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-
-        @media print {
-            .header, .selector-container, .btn-pdf {
-                display: none;
-            }
-            body {
-                background: white;
-            }
-        }
+        * {margin: 0;padding: 0;box-sizing: border-box;}
+        body {font-family: 'Arial', sans-serif;background: #f5f5f5;min-height: 100vh;}
+        .header {background: linear-gradient(135deg, #1a5f1a 0%, #2d8b2d 100%);color: white;padding: 20px;box-shadow: 0 2px 10px rgba(0,0,0,0.2);}
+        .header-content {max-width: 1200px;margin: 0 auto;display: flex;justify-content: space-between;align-items: center;}
+        .user-info {font-size: 18px;}
+        .btn-logout {background: white;color: #1a5f1a;padding: 10px 20px;border: none;border-radius: 5px;cursor: pointer;font-weight: bold;transition: transform 0.2s;}
+        .btn-logout:hover {transform: scale(1.05);}
+        .container {max-width: 1200px;margin: 30px auto;padding: 20px;}
+        .selector-container {background: white;padding: 20px;border-radius: 10px;box-shadow: 0 2px 10px rgba(0,0,0,0.1);margin-bottom: 30px;}
+        .form-group {margin-bottom: 15px;}
+        label {display: block;color: #333;margin-bottom: 8px;font-weight: bold;}
+        select {width: 100%;padding: 12px;border: 2px solid #ddd;border-radius: 8px;font-size: 16px;background: white;}
+        .tabla-container {background: white;padding: 20px;border-radius: 10px;box-shadow: 0 2px 10px rgba(0,0,0,0.1);display: none;}
+        .tabla-header {display: flex;justify-content: space-between;align-items: center;margin-bottom: 20px;}
+        h2 {color: #1a5f1a;}
+        .btn-pdf {background: #2d8b2d;color: white;padding: 10px 20px;border: none;border-radius: 5px;cursor: pointer;font-weight: bold;}
+        .lista {margin-bottom: 30px;border: 2px solid #2d8b2d;border-radius: 8px;overflow: hidden;}
+        .lista-titulo {background: #2d8b2d;color: white;padding: 15px;font-size: 18px;font-weight: bold;}
+        table {width: 100%;border-collapse: collapse;}
+        th {background: #1a5f1a;color: white;padding: 12px;text-align: left;font-weight: bold;}
+        td {padding: 12px;border-bottom: 1px solid #ddd;}
+        tr:hover {background: #f5f5f5;}
+        .ejercicio-nombre {font-weight: bold;color: #333;}
+        .datos-semana {font-size: 14px;line-height: 1.6;}
+        .no-tabla {text-align: center;padding: 40px;color: #666;}
+        @media print {.header, .selector-container, .btn-pdf {display: none;}body {background: white;}}
     </style>
 </head>
 <body>
     <div class="header">
         <div class="header-content">
-            <div class="user-info">
-                <strong>Usuario:</strong> <span id="nombreUsuario"></span>
-            </div>
+            <div class="user-info"><strong>Usuario:</strong> <span id="nombreUsuario"></span></div>
             <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
         </div>
     </div>
-
     <div class="container">
         <div class="selector-container">
             <div class="form-group">
-                <label for="selectorTabla">Seleccionar tabla de entrenamiento</label>
-                <select id="selectorTabla" onchange="cargarTablaSeleccionada()">
-                    <option value="">-- Seleccione una tabla --</option>
-                </select>
+                <label for="selectorTabla">Selecciona una tabla de entrenamiento</label>
+                <select id="selectorTabla" onchange="cargarTablaSeleccionada()"><option value="">...Selecciona una tabla...</option></select>
             </div>
         </div>
-
         <div class="tabla-container" id="tablaContainer">
             <div class="tabla-header">
                 <h2 id="tituloTabla"></h2>
@@ -204,12 +54,8 @@
             </div>
             <div id="contenidoTabla"></div>
         </div>
-
-        <div class="no-tabla" id="noTabla">
-            Seleccione una tabla para visualizar el entrenamiento
-        </div>
+        <div class="no-tabla" id="noTabla">Seleccione una tabla para ver el entrenamiento</div>
     </div>
-
     <script src="usuarios.js"></script>
 </body>
 </html>
