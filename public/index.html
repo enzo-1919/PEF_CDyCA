@@ -3,51 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Periodización Rugby</title>
+    <title>Centro Deportivo - Selección de Deporte</title>
     <style>
-        * {margin: 0;padding: 0;box-sizing: border-box;}
-        body {font-family: 'Arial', sans-serif;background: linear-gradient(135deg, #1a5f1a 0%, #2d8b2d 100%);min-height: 100vh;display: flex;justify-content: center;align-items: center;color: #fff;}
-        .container {background: white;padding: 40px;border-radius: 15px;box-shadow: 0 10px 40px rgba(0,0,0,0.3);width: 90%;max-width: 450px;text-align: center;}
-        h1 {color: #1a5f1a;margin-bottom: 10px;font-size: 28px;}
-        .subtitle {color: #2d8b2d;margin-bottom: 30px;font-size: 18px;font-weight: bold;}
-        .rugby-icon {font-size: 60px;margin-bottom: 20px;}
-        .form-group {margin-bottom: 25px;text-align: left;}
-        label {display: block;color: #333;margin-bottom: 8px;font-weight: bold;}
-        input[type="text"] {width: 100%;padding: 12px;border: 2px solid #ddd;border-radius: 8px;font-size: 16px;transition: border-color 0.3s;}
-        input[type="text"]:focus {outline: none;border-color: #2d8b2d;}
-        .btn {width: 100%;padding: 14px;background: #2d8b2d;color: white;border: none;border-radius: 8px;font-size: 18px;font-weight: bold;cursor: pointer;transition: background 0.3s;}
-        .btn:hover {background: #1a5f1a;}
-        .error {color: #d32f2f;margin-top: 15px;display: none;font-size: 14px;}
-        .rugby-ball {width: 80px;height: 50px;background: #8b5a2b;border-radius: 50%;margin: 0 auto 20px;position: relative;border: 3px solid #6b4423;}
-        .rugby-ball::before {content: '';position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width: 4px;height: 40px;background: white;}
+        :root {
+            --rugby: #2d8b2d;
+            --futbol: #1e88e5;
+            --hockey: #e91e63;
+            --voley: #dc1c1c;
+            --basquet: #ff6f00;
+            --handball: #00897b;
+            --natacion: #0277bd;
+            --tenis: #ecf405;
+            --patin: #6a1b9a;
+        }
+        
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+        
+        .deportes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .deporte-btn {
+            padding: 40px 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .deporte-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .deporte-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        .rugby { background: var(--rugby); }
+        .futbol { background: var(--futbol); }
+        .hockey { background: var(--hockey); }
+        .voley { background: var(--voley); }
+        .basquet { background: var(--basquet); }
+        .handball { background: var(--handball); }
+        .natacion { background: var(--natacion); }
+        .tenis { background: var(--tenis); }
+        .patin { background: var(--patin); }
+        
+        .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .deportes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .deporte-btn {
+                padding: 30px 15px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .deportes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Periodización del Entrenamiento de la Fuerza</h1>
-        <p class="subtitle">- Rugby -</p>
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="usuario">Nombre de usuario</label>
-                <input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required>
-            </div>
-            <button type="submit" class="btn">Ingresar</button>
-            <p class="error" id="error">Usuario no encontrado. Verifique e intente nuevamente.</p>
-        </form>
+        <h1>Centro Deportivo</h1>
+        <p class="subtitle">Selecciona tu deporte para acceder</p>
+        
+        <div class="deportes-grid">
+            <button class="deporte-btn rugby" onclick="seleccionarDeporte('rugby')">
+                <span class="icon">🏉</span>
+                RUGBY
+            </button>
+            
+            <button class="deporte-btn futbol" onclick="seleccionarDeporte('futbol')">
+                <span class="icon">⚽</span>
+                FÚTBOL
+            </button>
+            
+            <button class="deporte-btn hockey" onclick="seleccionarDeporte('hockey')">
+                <span class="icon">🏑</span>
+                HOCKEY
+            </button>
+            
+            <button class="deporte-btn voley" onclick="seleccionarDeporte('voley')">
+                <span class="icon">🏐</span>
+                VOLEY
+            </button>
+            
+            <button class="deporte-btn basquet" onclick="seleccionarDeporte('basquet')">
+                <span class="icon">🏀</span>
+                BASQUET
+            </button>
+            
+            <button class="deporte-btn handball" onclick="seleccionarDeporte('handball')">
+                <span class="icon">🤾</span>
+                HANDBALL
+            </button>
+            
+            <button class="deporte-btn natacion" onclick="seleccionarDeporte('natacion')">
+                <span class="icon">🏊</span>
+                NATACIÓN
+            </button>
+            
+            <button class="deporte-btn tenis" onclick="seleccionarDeporte('tenis')">
+                <span class="icon">🎾</span>
+                TENIS
+            </button>
+            
+            <button class="deporte-btn patin" onclick="seleccionarDeporte('patin')">
+                <span class="icon">⛸️</span>
+                PATÍN
+            </button>
+        </div>
     </div>
+    
     <script>
-        const API_URL = 'https://pef-2pzu.onrender.com/api';
-        async function cargarUsuarios() {try {const response = await fetch(`${API_URL}/usuarios`);if (!response.ok) {throw new Error('No se pudo cargar usuarios');}const usuarios = await response.json();return usuarios;} catch (error) {console.error('Error al cargar usuarios:', error);alert('Error: No se pudo conectar con el servidor. Asegúrate de que el servidor está corriendo.');return [];}}
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {e.preventDefault();
-            const nombreUsuario = document.getElementById('usuario').value.trim();const errorMsg = document.getElementById('error');
-            // Cargar usuarios desde el servidor
-            const usuarios = await cargarUsuarios();
-            if (usuarios.length === 0) {errorMsg.textContent = 'Error al cargar la base de datos de usuarios';errorMsg.style.display = 'block';return;}
-            const usuarioEncontrado = usuarios.find(u => u.nombre.toLowerCase() === nombreUsuario.toLowerCase());
-            if (usuarioEncontrado) {
-                localStorage.setItem('usuarioActual', JSON.stringify(usuarioEncontrado));
-                if (usuarioEncontrado.tipo === 'admin') {window.location.href = 'admin.html';} else {window.location.href = 'usuarios.html';}
-            } else { errorMsg.textContent = 'Usuario no encontrado. Verifique e intente nuevamente.';errorMsg.style.display = 'block';setTimeout(() => {errorMsg.style.display = 'none';}, 3000);}});
+        function seleccionarDeporte(deporte) {
+            localStorage.setItem('deporteSeleccionado', deporte);
+            window.location.href = 'login.html';
+        }
     </script>
 </body>
 </html>
