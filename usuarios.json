@@ -1,7 +1,14 @@
 [
-  {"nombre": "Ma","tipo": "admin","deporte": "rugby"},
-  {"nombre": "Marcos","tipo": "admin","deporte": "futbol"},
-  {"nombre": "Enzo","tipo": "admin","deporte": "rugby"},
+  {"nombre": "AdFu","tipo": "admin","deporte": "futbol"},
+  {"nombre": "AdHo","tipo": "admin","deporte": "hockey"},
+  {"nombre": "AdVo","tipo": "admin","deporte": "voley"},
+  {"nombre": "AdBa","tipo": "admin","deporte": "basquet"},
+  {"nombre": "AdHa","tipo": "admin","deporte": "handball"},
+  {"nombre": "AdNa","tipo": "admin","deporte": "natacion"},
+  {"nombre": "AdTe","tipo": "admin","deporte": "tenis"},
+  {"nombre": "AdPa","tipo": "admin","deporte": "patin"},
+  {"nombre": "AdRu","tipo": "admin","deporte": "rugby"},
+
   {"nombre": "Pratto","tipo": "user","deporte": "rugby"}, 
   {"nombre": "Chipa","tipo": "user","deporte": "rugby"}, 
   {"nombre": "Benja","tipo": "user","deporte": "rugby"}, 
