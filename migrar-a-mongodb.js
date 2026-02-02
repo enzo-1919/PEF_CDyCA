@@ -28,39 +28,7 @@ async function migrar() {
         
         // Conectar a MongoDB
         await mongoose.connect(MONGODB_URI);
-        console.log('✅ Conectado a MongoDB');
-        
-        // ============================================
-        // CREAR ADMINS PARA CADA DEPORTE
-        // ============================================
-        console.log('\n📋 Creando admins para cada deporte...');
-        
-        const deportes = ['rugby', 'futbol', 'hockey', 'voley', 'basquet', 'handball', 'natacion', 'tenis', 'patin'];
-        let adminsCreados = 0;
-        
-        for (const deporte of deportes) {
-            const adminNombre = deporte.charAt(0).toUpperCase() + deporte.slice(1) + 'Admin';
-            
-            try {
-                const existe = await Usuario.findOne({ nombre: adminNombre });
-                if (!existe) {
-                    await Usuario.create({ 
-                        nombre: adminNombre, 
-                        tipo: 'admin', 
-                        deporte: deporte 
-                    });
-                    console.log(`   ✅ Admin creado: ${adminNombre} (${deporte})`);
-                    adminsCreados++;
-                } else {
-                    console.log(`   ⭐ Admin ya existe: ${adminNombre}`);
-                }
-            } catch (error) {
-                console.error(`   ❌ Error con admin ${adminNombre}:`, error.message);
-            }
-        }
-        
-        console.log(`\n   📊 Admins creados: ${adminsCreados}`);
-        
+        console.log('✅ Conectado a MongoDB');        
         // ============================================
         // MIGRAR USUARIOS EXISTENTES
         // ============================================
