@@ -31,24 +31,7 @@ const tablasSchema = new mongoose.Schema({
 const Tablas = mongoose.model('Tablas', tablasSchema);
 
 async function inicializarDatos() {
-    try {
-        // Crear admins para cada deporte si no existen
-        const deportes = ['rugby', 'futbol', 'hockey', 'voley', 'basquet', 'handball', 'natacion', 'tenis', 'patin'];
-        
-        for (const deporte of deportes) {
-            const adminNombre = deporte.charAt(0).toUpperCase() + deporte.slice(1) + 'Admin';
-            const adminExiste = await Usuario.findOne({ nombre: adminNombre });
-            
-            if (!adminExiste) {
-                await Usuario.create({ 
-                    nombre: adminNombre, 
-                    tipo: 'admin', 
-                    deporte: deporte 
-                });
-                console.log(`✅ Usuario Admin creado para ${deporte}: ${adminNombre}`);
-            }
-        }
-        
+    try { 
         const tablasExisten = await Tablas.findOne();
         if (!tablasExisten) {
             await Tablas.create({ generales: [], individuales: {} });
