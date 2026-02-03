@@ -318,9 +318,11 @@ function crearTablaEjercicios(lista, indexLista) {
     tableWrapper.style.maxWidth = '100%';
     
     const table = document.createElement('table');
-    table.style.minWidth = '1200px';
+    table.style.minWidth = '600px';
     
     const thead = document.createElement('thead');
+    
+    // Primera fila: Ejercicio + Semanas + Agregar Semana + Acciones
     const headerRow = document.createElement('tr');
     
     const thEjercicio = document.createElement('th');
@@ -329,15 +331,36 @@ function crearTablaEjercicios(lista, indexLista) {
     thEjercicio.style.left = '0';
     thEjercicio.style.background = 'var(--color-oscuro)';
     thEjercicio.style.zIndex = '10';
+    thEjercicio.rowSpan = 2;
     headerRow.appendChild(thEjercicio);
     
-    // Agregar columnas para semanas 1-6
-    for (let i = 1; i <= 6; i++) {
+    // Determinar el número máximo de semanas
+    let maxSemanas = 1;
+    lista.ejercicios.forEach(ej => {
+        if (ej.semanas && ej.semanas.length > maxSemanas) {
+            maxSemanas = ej.semanas.length;
+        }
+    });
+    
+    // Columnas de semanas
+    for (let i = 0; i < maxSemanas; i++) {
         const th = document.createElement('th');
-        th.colSpan = 6; // Series, Reps, Peso, t1, t2, t3
-        th.textContent = `Semana ${i}`;
+        th.textContent = `Semana ${i + 1}`;
         headerRow.appendChild(th);
     }
+    
+    // Botón para agregar semana a TODOS los ejercicios
+    const thAgregarSemana = document.createElement('th');
+    thAgregarSemana.rowSpan = 2;
+    thAgregarSemana.style.verticalAlign = 'middle';
+    const btnAgregarSemana = document.createElement('button');
+    btnAgregarSemana.className = 'btn';
+    btnAgregarSemana.textContent = '+ Semana';
+    btnAgregarSemana.style.fontSize = '12px';
+    btnAgregarSemana.style.padding = '5px 10px';
+    btnAgregarSemana.onclick = () => agregarSemanaTodos(indexLista);
+    thAgregarSemana.appendChild(btnAgregarSemana);
+    headerRow.appendChild(thAgregarSemana);
     
     const thAcciones = document.createElement('th');
     thAcciones.textContent = 'Acciones';
@@ -345,37 +368,20 @@ function crearTablaEjercicios(lista, indexLista) {
     thAcciones.style.right = '0';
     thAcciones.style.background = 'var(--color-oscuro)';
     thAcciones.style.zIndex = '10';
+    thAcciones.rowSpan = 2;
     headerRow.appendChild(thAcciones);
     
     thead.appendChild(headerRow);
     
-    // Segunda fila de headers (subcabeceras)
+    // Segunda fila: subcabeceras (Series, Reps, Peso, t1, t2, t3)
     const subHeaderRow = document.createElement('tr');
     
-    const thEjercicioSub = document.createElement('th');
-    thEjercicioSub.textContent = '';
-    thEjercicioSub.style.position = 'sticky';
-    thEjercicioSub.style.left = '0';
-    thEjercicioSub.style.background = 'var(--color-oscuro)';
-    thEjercicioSub.style.zIndex = '10';
-    subHeaderRow.appendChild(thEjercicioSub);
-    
-    for (let i = 1; i <= 6; i++) {
-        ['Series', 'Reps', 'Peso', 't1', 't2', 't3'].forEach(label => {
-            const th = document.createElement('th');
-            th.textContent = label;
-            th.style.fontSize = '11px';
-            subHeaderRow.appendChild(th);
-        });
+    for (let i = 0; i < maxSemanas; i++) {
+        const th = document.createElement('th');
+        th.innerHTML = 'S / R / P / t1 / t2 / t3';
+        th.style.fontSize = '10px';
+        subHeaderRow.appendChild(th);
     }
-    
-    const thAccionesSub = document.createElement('th');
-    thAccionesSub.textContent = '';
-    thAccionesSub.style.position = 'sticky';
-    thAccionesSub.style.right = '0';
-    thAccionesSub.style.background = 'var(--color-oscuro)';
-    thAccionesSub.style.zIndex = '10';
-    subHeaderRow.appendChild(thAccionesSub);
     
     thead.appendChild(subHeaderRow);
     table.appendChild(thead);
@@ -385,6 +391,7 @@ function crearTablaEjercicios(lista, indexLista) {
     lista.ejercicios.forEach((ejercicio, indexEjercicio) => {
         const row = document.createElement('tr');
         
+        // Columna nombre del ejercicio
         const tdNombre = document.createElement('td');
         tdNombre.style.position = 'sticky';
         tdNombre.style.left = '0';
@@ -393,64 +400,101 @@ function crearTablaEjercicios(lista, indexLista) {
         const inputNombre = document.createElement('input');
         inputNombre.type = 'text';
         inputNombre.value = ejercicio.nombre;
+        inputNombre.style.width = '120px';
         inputNombre.onchange = (e) => {ejercicio.nombre = e.target.value;};
         tdNombre.appendChild(inputNombre);
         row.appendChild(tdNombre);
         
-        // Campos de semana 1-6
-        for (let i = 1; i <= 6; i++) {
-            const semanaKey = `semana${i}`;
-            
-            // Series
-            const tdSeries = document.createElement('td');
-            const inputSeries = document.createElement('input');
-            inputSeries.type = 'number';
-            inputSeries.placeholder = 'S';
-            inputSeries.style.width = '50px';
-            inputSeries.value = ejercicio[semanaKey].series;
-            inputSeries.onchange = (e) => {ejercicio[semanaKey].series = e.target.value;};
-            tdSeries.appendChild(inputSeries);
-            row.appendChild(tdSeries);
-            
-            // Reps
-            const tdReps = document.createElement('td');
-            const inputReps = document.createElement('input');
-            inputReps.type = 'number';
-            inputReps.placeholder = 'R';
-            inputReps.style.width = '50px';
-            inputReps.value = ejercicio[semanaKey].repeticiones;
-            inputReps.onchange = (e) => {ejercicio[semanaKey].repeticiones = e.target.value;};
-            tdReps.appendChild(inputReps);
-            row.appendChild(tdReps);
-            
-            // Peso
-            const tdPeso = document.createElement('td');
-            const inputPeso = document.createElement('input');
-            inputPeso.type = 'number';
-            inputPeso.placeholder = 'P';
-            inputPeso.style.width = '50px';
-            inputPeso.value = ejercicio[semanaKey].peso;
-            inputPeso.onchange = (e) => {ejercicio[semanaKey].peso = e.target.value;};
-            tdPeso.appendChild(inputPeso);
-            row.appendChild(tdPeso);
-            
-            // t1, t2, t3
-            ['t1', 't2', 't3'].forEach(t => {
-                const td = document.createElement('td');
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.placeholder = t;
-                input.style.width = '50px';
-                input.value = ejercicio[semanaKey][t] || '';
-                input.onchange = (e) => {
-                    if (!ejercicio[semanaKey][t]) ejercicio[semanaKey][t] = '';
-                    ejercicio[semanaKey][t] = e.target.value;
-                };
-                td.appendChild(input);
-                row.appendChild(td);
-            });
+        // Asegurar que el ejercicio tenga el array semanas
+        if (!ejercicio.semanas || !Array.isArray(ejercicio.semanas)) {
+            ejercicio.semanas = [{ series: '', repeticiones: '', peso: '', t1: '', t2: '', t3: '' }];
         }
         
+        // Rellenar semanas hasta maxSemanas
+        while (ejercicio.semanas.length < maxSemanas) {
+            ejercicio.semanas.push({ series: '', repeticiones: '', peso: '', t1: '', t2: '', t3: '' });
+        }
+        
+        // Columnas de semanas
+        ejercicio.semanas.forEach((semana, semanaIndex) => {
+            const td = document.createElement('td');
+            td.style.padding = '8px';
+            td.style.verticalAlign = 'top';
+            
+            const containerDiv = document.createElement('div');
+            containerDiv.style.display = 'flex';
+            containerDiv.style.flexDirection = 'column';
+            containerDiv.style.gap = '4px';
+            
+            // Series
+            const inputSeries = document.createElement('input');
+            inputSeries.type = 'number';
+            inputSeries.placeholder = 'Series';
+            inputSeries.style.width = '80px';
+            inputSeries.style.padding = '4px';
+            inputSeries.value = semana.series || '';
+            inputSeries.onchange = (e) => {semana.series = e.target.value;};
+            containerDiv.appendChild(inputSeries);
+            
+            // Reps
+            const inputReps = document.createElement('input');
+            inputReps.type = 'number';
+            inputReps.placeholder = 'Reps';
+            inputReps.style.width = '80px';
+            inputReps.style.padding = '4px';
+            inputReps.value = semana.repeticiones || '';
+            inputReps.onchange = (e) => {semana.repeticiones = e.target.value;};
+            containerDiv.appendChild(inputReps);
+            
+            // Peso
+            const inputPeso = document.createElement('input');
+            inputPeso.type = 'number';
+            inputPeso.placeholder = 'Peso (kg)';
+            inputPeso.style.width = '80px';
+            inputPeso.style.padding = '4px';
+            inputPeso.value = semana.peso || '';
+            inputPeso.onchange = (e) => {semana.peso = e.target.value;};
+            containerDiv.appendChild(inputPeso);
+            
+            // t1
+            const inputT1 = document.createElement('input');
+            inputT1.type = 'text';
+            inputT1.placeholder = 't1';
+            inputT1.style.width = '80px';
+            inputT1.style.padding = '4px';
+            inputT1.value = semana.t1 || '';
+            inputT1.onchange = (e) => {semana.t1 = e.target.value;};
+            containerDiv.appendChild(inputT1);
+            
+            // t2
+            const inputT2 = document.createElement('input');
+            inputT2.type = 'text';
+            inputT2.placeholder = 't2';
+            inputT2.style.width = '80px';
+            inputT2.style.padding = '4px';
+            inputT2.value = semana.t2 || '';
+            inputT2.onchange = (e) => {semana.t2 = e.target.value;};
+            containerDiv.appendChild(inputT2);
+            
+            // t3
+            const inputT3 = document.createElement('input');
+            inputT3.type = 'text';
+            inputT3.placeholder = 't3';
+            inputT3.style.width = '80px';
+            inputT3.style.padding = '4px';
+            inputT3.value = semana.t3 || '';
+            inputT3.onchange = (e) => {semana.t3 = e.target.value;};
+            containerDiv.appendChild(inputT3);
+            
+            td.appendChild(containerDiv);
+            row.appendChild(td);
+        });
+        
+        // Celda vacía para alinear con el botón "+ Semana"
+        const tdVacio = document.createElement('td');
+        row.appendChild(tdVacio);
+        
+        // Columna acciones
         const tdAcciones = document.createElement('td');
         tdAcciones.style.position = 'sticky';
         tdAcciones.style.right = '0';
@@ -459,6 +503,7 @@ function crearTablaEjercicios(lista, indexLista) {
         const btnEliminar = document.createElement('button');
         btnEliminar.className = 'btn btn-danger';
         btnEliminar.textContent = 'Eliminar';
+        btnEliminar.style.fontSize = '12px';
         btnEliminar.onclick = () => eliminarEjercicio(indexLista, indexEjercicio);
         tdAcciones.appendChild(btnEliminar);
         row.appendChild(tdAcciones);
@@ -471,18 +516,28 @@ function crearTablaEjercicios(lista, indexLista) {
     return tableWrapper;
 }
 
+function agregarSemanaTodos(indexLista) {
+    const lista = tablaEnEdicion.listas[indexLista];
+    
+    lista.ejercicios.forEach(ejercicio => {
+        if (!ejercicio.semanas) {
+            ejercicio.semanas = [];
+        }
+        ejercicio.semanas.push({ series: '', repeticiones: '', peso: '', t1: '', t2: '', t3: '' });
+    });
+    
+    renderizarListas();
+}
+
 function agregarEjercicio(indexLista) {
     const nombre = prompt('Nombre del ejercicio (Ej: Sentadillas):');
     if (!nombre) return;
     
     const nuevoEjercicio = {
         nombre: nombre,
-        semana1: { series: '3', repeticiones: '10', peso: '40', t1: '', t2: '', t3: '' },
-        semana2: { series: '3', repeticiones: '10', peso: '45', t1: '', t2: '', t3: '' },
-        semana3: { series: '3', repeticiones: '8', peso: '50', t1: '', t2: '', t3: '' },
-        semana4: { series: '4', repeticiones: '8', peso: '50', t1: '', t2: '', t3: '' },
-        semana5: { series: '4', repeticiones: '6', peso: '55', t1: '', t2: '', t3: '' },
-        semana6: { series: '4', repeticiones: '6', peso: '60', t1: '', t2: '', t3: '' }
+        semanas: [
+            { series: '3', repeticiones: '10', peso: '40', t1: '', t2: '', t3: '' }
+        ]
     };
     
     tablaEnEdicion.listas[indexLista].ejercicios.push(nuevoEjercicio);

@@ -149,9 +149,19 @@ function mostrarTabla(tabla) {
         tableWrapper.style.WebkitOverflowScrolling = 'touch';
         
         const table = document.createElement('table');
-        table.style.minWidth = '1200px';
+        table.style.minWidth = '600px';
         
         const thead = document.createElement('thead');
+        
+        // Determinar el número máximo de semanas
+        let maxSemanas = 1;
+        lista.ejercicios.forEach(ej => {
+            if (ej.semanas && ej.semanas.length > maxSemanas) {
+                maxSemanas = ej.semanas.length;
+            }
+        });
+        
+        // Primera fila: Ejercicio + Semanas
         const headerRow = document.createElement('tr');
         
         const thEjercicio = document.createElement('th');
@@ -160,36 +170,25 @@ function mostrarTabla(tabla) {
         thEjercicio.style.left = '0';
         thEjercicio.style.background = 'var(--color-oscuro)';
         thEjercicio.style.zIndex = '10';
+        thEjercicio.rowSpan = 2;
         headerRow.appendChild(thEjercicio);
         
-        // Columnas para semanas 1-6
-        for (let i = 1; i <= 6; i++) {
+        for (let i = 0; i < maxSemanas; i++) {
             const th = document.createElement('th');
-            th.colSpan = 6;
-            th.textContent = `Semana ${i}`;
+            th.textContent = `Semana ${i + 1}`;
             headerRow.appendChild(th);
         }
         
         thead.appendChild(headerRow);
         
-        // Segunda fila de headers
+        // Segunda fila: subcabeceras
         const subHeaderRow = document.createElement('tr');
         
-        const thEjercicioSub = document.createElement('th');
-        thEjercicioSub.textContent = '';
-        thEjercicioSub.style.position = 'sticky';
-        thEjercicioSub.style.left = '0';
-        thEjercicioSub.style.background = 'var(--color-oscuro)';
-        thEjercicioSub.style.zIndex = '10';
-        subHeaderRow.appendChild(thEjercicioSub);
-        
-        for (let i = 1; i <= 6; i++) {
-            ['Series', 'Reps', 'Peso', 't1', 't2', 't3'].forEach(label => {
-                const th = document.createElement('th');
-                th.textContent = label;
-                th.style.fontSize = '11px';
-                subHeaderRow.appendChild(th);
-            });
+        for (let i = 0; i < maxSemanas; i++) {
+            const th = document.createElement('th');
+            th.innerHTML = 'S / R / P / t1 / t2 / t3';
+            th.style.fontSize = '10px';
+            subHeaderRow.appendChild(th);
         }
         
         thead.appendChild(subHeaderRow);
@@ -209,37 +208,46 @@ function mostrarTabla(tabla) {
             tdNombre.style.zIndex = '5';
             row.appendChild(tdNombre);
             
-            // Datos de semanas 1-6
-            for (let i = 1; i <= 6; i++) {
-                const semanaKey = `semana${i}`;
-                const datos = ejercicio[semanaKey];
-                
-                // Series
-                const tdSeries = document.createElement('td');
-                tdSeries.className = 'datos-semana';
-                tdSeries.textContent = datos.series;
-                row.appendChild(tdSeries);
-                
-                // Reps
-                const tdReps = document.createElement('td');
-                tdReps.className = 'datos-semana';
-                tdReps.textContent = datos.repeticiones;
-                row.appendChild(tdReps);
-                
-                // Peso
-                const tdPeso = document.createElement('td');
-                tdPeso.className = 'datos-semana';
-                tdPeso.textContent = datos.peso + ' kg';
-                row.appendChild(tdPeso);
-                
-                // t1, t2, t3
-                ['t1', 't2', 't3'].forEach(t => {
-                    const td = document.createElement('td');
-                    td.className = 'datos-semana';
-                    td.textContent = datos[t] || '-';
-                    row.appendChild(td);
-                });
+            // Asegurar que el ejercicio tenga el array semanas
+            if (!ejercicio.semanas || !Array.isArray(ejercicio.semanas)) {
+                // Migrar formato antiguo a nuevo
+                ejercicio.semanas = [];
+                for (let i = 1; i <= 6; i++) {
+                    const semanaKey = `semana${i}`;
+                    if (ejercicio[semanaKey]) {
+                        ejercicio.semanas.push(ejercicio[semanaKey]);
+                    }
+                }
+                if (ejercicio.semanas.length === 0) {
+                    ejercicio.semanas = [{ series: '', repeticiones: '', peso: '', t1: '', t2: '', t3: '' }];
+                }
             }
+            
+            // Mostrar semanas
+            ejercicio.semanas.forEach((semana, semanaIndex) => {
+                const td = document.createElement('td');
+                td.className = 'datos-semana';
+                td.style.verticalAlign = 'top';
+                td.style.padding = '8px';
+                
+                const containerDiv = document.createElement('div');
+                containerDiv.style.display = 'flex';
+                containerDiv.style.flexDirection = 'column';
+                containerDiv.style.gap = '2px';
+                containerDiv.style.fontSize = '13px';
+                
+                containerDiv.innerHTML = `
+                    <div><strong>Series:</strong> ${semana.series || '-'}</div>
+                    <div><strong>Reps:</strong> ${semana.repeticiones || '-'}</div>
+                    <div><strong>Peso:</strong> ${semana.peso ? semana.peso + ' kg' : '-'}</div>
+                    <div><strong>t1:</strong> ${semana.t1 || '-'}</div>
+                    <div><strong>t2:</strong> ${semana.t2 || '-'}</div>
+                    <div><strong>t3:</strong> ${semana.t3 || '-'}</div>
+                `;
+                
+                td.appendChild(containerDiv);
+                row.appendChild(td);
+            });
             
             tbody.appendChild(row);
         });
