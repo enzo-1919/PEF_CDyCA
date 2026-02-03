@@ -3,86 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Deportivo - Selección de Deporte</title>
+    <title>Plano de Ubicación</title>
     <style>
-        :root {
-            --rugby: #2d8b2d;
-            --futbol: #1e88e5;
-            --hockey: #e91e63;
-            --voley: #dc1c1c;
-            --basquet: #ff6f00;
-            --handball: #00897b;
-            --natacion: #0277bd;
-            --tenis: #ecf405;
-            --patin: #6a1b9a;
-        }
-        
+        :root {--rugby: #2d8b2d;--futbol: #1d0adb;--hockey: #e91e63;--voley: #dc1c1c;--basquet: #ff6f00;--handball: #00897b;--natacion: #06adce;--tenis: #ecf405;--patin: #6a1b9a;}
         * {margin: 0; padding: 0; box-sizing: border-box;}
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ffffff 0%, #000000 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 1200px;
-            width: 100%;
-        }
-        
-        h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 32px;
-        }
-        
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 40px;
-            font-size: 18px;
-        }
-        
-        .deportes-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .deporte-btn {
-            padding: 40px 20px;
-            border: none;
-            border-radius: 15px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .deporte-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-        
-        .deporte-btn:active {
-            transform: translateY(-2px);
-        }
-        
+        body {font-family: 'Arial', sans-serif;background: linear-gradient(135deg, #000000 0%, #ffffff 100%);min-height: 100vh;display: flex;justify-content: center;align-items: center;padding: 20px;}
+        .container {background: white;padding: 30px;border-radius: 20px;box-shadow: 0 20px 60px rgba(0,0,0,0.3);max-width: 500px;width: 100%;}
+        h1 {text-align: center;color: #333;margin-bottom: 10px;font-size: 24px;}
+        .subtitle {text-align: center;color: #666;margin-bottom: 20px;font-size: 14px;}
+        .mapa-container {position: relative;width: 100%;max-width: 400px;height: 650px;margin: 0 auto;background: #e8e4d9;border: 3px solid #333;border-radius: 10px;overflow: hidden;}
+        .deporte-btn {position: absolute;border: none;border-radius: 8px;font-size: 13px;font-weight: bold;color: white;cursor: pointer;transition: all 0.3s;box-shadow: 0 3px 10px rgba(0,0,0,0.3);padding: 8px;display: flex;align-items: center;justify-content: center;text-align: center;flex-direction: column;}
+        .deporte-btn:hover {transform: scale(1.05);box-shadow: 0 6px 20px rgba(0,0,0,0.5);z-index: 10;}
+        .deporte-btn:active {transform: scale(0.98);}
+        .icon {font-size: 22px;margin-bottom: 3px;}
         .rugby { background: var(--rugby); }
         .futbol { background: var(--futbol); }
         .hockey { background: var(--hockey); }
@@ -90,95 +23,42 @@
         .basquet { background: var(--basquet); }
         .handball { background: var(--handball); }
         .natacion { background: var(--natacion); }
-        .tenis { background: var(--tenis); }
+        .tenis { background: var(--tenis); color: #333; }
         .patin { background: var(--patin); }
-        
-        .icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-            display: block;
-        }
-        
-        @media (max-width: 768px) {
-            .deportes-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            .deporte-btn {
-                padding: 30px 15px;
-                font-size: 16px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .deportes-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .btn-rugby {top: 2%;left: 2%;width: 96%;height: 19%;}
+        .btn-futbol {top: 22%;left: 2%;width: 96%;height: 24%;}
+        .btn-hockey {top: 47%;left: 2%;width: 46%;height: 18%;}
+        .btn-natacion {top: 66%;left: 2%;width: 46%;height: 14%;}
+        .btn-tenis {top: 81%;left: 2%;width: 42%;height: 16%;}
+        .btn-handball {top: 47%;left: 49%;width: 49%;height: 17%;}
+        .btn-voley {top: 65%;left: 49%;width: 49%;height: 15%;}
+        .btn-basquet {top: 81%;left: 46%;width: 25%;height: 16%;}
+        .btn-patin {top: 81%;left: 73%;width: 25%;height: 16%;}
+        @media (max-width: 768px) {.mapa-container {height: 550px;}
+            .deporte-btn {font-size: 11px;}
+            .icon {font-size: 18px;}
+            h1 {font-size: 20px;}}
+        @media (max-width: 480px) {.mapa-container {height: 500px;}
+            .deporte-btn {font-size: 10px;padding: 5px;}
+            .icon {font-size: 16px;}}
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Centro Deportivo</h1>
-        <p class="subtitle">Selecciona tu deporte para acceder</p>
-        
-        <div class="deportes-grid">
-            <button class="deporte-btn rugby" onclick="seleccionarDeporte('rugby')">
-                <span class="icon">🏉</span>
-                RUGBY
-            </button>
-            
-            <button class="deporte-btn futbol" onclick="seleccionarDeporte('futbol')">
-                <span class="icon">⚽</span>
-                FÚTBOL
-            </button>
-            
-            <button class="deporte-btn hockey" onclick="seleccionarDeporte('hockey')">
-                <span class="icon">🏑</span>
-                HOCKEY
-            </button>
-            
-            <button class="deporte-btn voley" onclick="seleccionarDeporte('voley')">
-                <span class="icon">🏐</span>
-                VOLEY
-            </button>
-            
-            <button class="deporte-btn basquet" onclick="seleccionarDeporte('basquet')">
-                <span class="icon">🏀</span>
-                BASQUET
-            </button>
-            
-            <button class="deporte-btn handball" onclick="seleccionarDeporte('handball')">
-                <span class="icon">🤾</span>
-                HANDBALL
-            </button>
-            
-            <button class="deporte-btn natacion" onclick="seleccionarDeporte('natacion')">
-                <span class="icon">🏊</span>
-                NATACIÓN
-            </button>
-            
-            <button class="deporte-btn tenis" onclick="seleccionarDeporte('tenis')">
-                <span class="icon">🎾</span>
-                TENIS
-            </button>
-            
-            <button class="deporte-btn patin" onclick="seleccionarDeporte('patin')">
-                <span class="icon">⛸️</span>
-                PATÍN
-            </button>
+        <h1>Plano de Ubicación</h1>
+        <p class="subtitle">Selecciona tu deporte</p>        
+        <div class="mapa-container">
+            <button class="deporte-btn rugby btn-rugby" onclick="seleccionarDeporte('rugby')"><span class="icon">🏉</span>RUGBY</button>
+            <button class="deporte-btn futbol btn-futbol" onclick="seleccionarDeporte('futbol')"><span class="icon">⚽</span>FÚTBOL</button>
+            <button class="deporte-btn hockey btn-hockey" onclick="seleccionarDeporte('hockey')"><span class="icon">🏑</span>HOCKEY</button>
+            <button class="deporte-btn natacion btn-natacion" onclick="seleccionarDeporte('natacion')"><span class="icon">🏊</span>NATACIÓN</button>
+            <button class="deporte-btn tenis btn-tenis" onclick="seleccionarDeporte('tenis')"><span class="icon">🎾</span>TENIS</button>
+            <button class="deporte-btn handball btn-handball" onclick="seleccionarDeporte('handball')"><span class="icon">🤾</span>HANDBALL</button>
+            <button class="deporte-btn voley btn-voley" onclick="seleccionarDeporte('voley')"><span class="icon">🏐</span>VOLEY</button>
+            <button class="deporte-btn basquet btn-basquet" onclick="seleccionarDeporte('basquet')"><span class="icon">🏀</span>BASQUET</button>
+            <button class="deporte-btn patin btn-patin" onclick="seleccionarDeporte('patin')"><span class="icon">⛸️</span>PATÍN</button>
         </div>
     </div>
-    
-    <script>
-        function seleccionarDeporte(deporte) {
-            localStorage.setItem('deporteSeleccionado', deporte);
-            window.location.href = 'login.html';
-        }
-    </script>
+    <script>function seleccionarDeporte(deporte) {localStorage.setItem('deporteSeleccionado', deporte);window.location.href = 'login.html';}</script>
 </body>
 </html>

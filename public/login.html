@@ -5,139 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Periodización</title>
     <style>
-        :root {
-            --rugby: #2d8b2d;
-            --futbol: #1e88e5;
-            --hockey: #e91e63;
-            --voley: #dc1c1c;
-            --basquet: #ff6f00;
-            --handball: #00897b;
-            --natacion: #0277bd;
-            --tenis: #ecf405;
-            --patin: #6a1b9a;
-            --color-primario: var(--rugby);
-        }
-        
+        :root {--rugby: #2d8b2d;--futbol: #1d0adb;--hockey: #e91e63;--voley: #dc1c1c;--basquet: #ff6f00;--handball: #00897b;--natacion: #06adce;--tenis: #ecf405;--patin: #6a1b9a;--color-primario: var(--rugby);}
         * {margin: 0; padding: 0; box-sizing: border-box;}
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-primario) 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-        }
-        
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-        }
-        
-        .btn-volver {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 10px 20px;
-            border: 2px solid white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        
-        .btn-volver:hover {
-            background: white;
-            color: var(--color-primario);
-        }
-        
-        h1 {
-            color: var(--color-primario);
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        
-        .subtitle {
-            color: var(--color-primario);
-            margin-bottom: 30px;
-            font-size: 20px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        
-        .deporte-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        
-        label {
-            display: block;
-            color: #333;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        
-        input[type="text"]:focus {
-            outline: none;
-            border-color: var(--color-primario);
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--color-primario);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        .error {
-            color: #d32f2f;
-            margin-top: 15px;
-            display: none;
-            font-size: 14px;
-        }
+        body {font-family: 'Arial', sans-serif;background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-primario) 100%);min-height: 100vh;display: flex;justify-content: center;align-items: center;color: #fff;}
+        .container {background: white;padding: 40px;border-radius: 15px;box-shadow: 0 10px 40px rgba(0,0,0,0.3);width: 90%;max-width: 450px;text-align: center;}
+        .btn-volver {position: absolute;top: 20px;left: 20px;background: rgba(255,255,255,0.2);color: white;padding: 10px 20px;border: 2px solid white;border-radius: 8px;cursor: pointer;font-weight: bold;transition: all 0.3s;}
+        .btn-volver:hover {background: white;color: var(--color-primario);}
+        h1 {color: var(--color-primario);margin-bottom: 10px;font-size: 28px;}
+        .subtitle {color: var(--color-primario);margin-bottom: 30px;font-size: 20px;font-weight: bold;text-transform: uppercase;}
+        .deporte-icon {font-size: 60px;margin-bottom: 20px;}
+        .form-group {margin-bottom: 25px;text-align: left;}
+        label {display: block;color: #333;margin-bottom: 8px;font-weight: bold;}
+        input[type="text"] {width: 100%;padding: 12px;border: 2px solid #ddd;border-radius: 8px;font-size: 16px;transition: border-color 0.3s;}
+        input[type="text"]:focus {outline: none;border-color: var(--color-primario);}
+        .btn {width: 100%;padding: 14px;background: var(--color-primario);color: white;border: none;border-radius: 8px;font-size: 18px;font-weight: bold;cursor: pointer;transition: all 0.3s;}
+        .btn:hover {opacity: 0.9;transform: translateY(-2px);}
+        .error {color: #d32f2f;margin-top: 15px;display: none;font-size: 14px;}
     </style>
 </head>
 <body>
     <button class="btn-volver" onclick="volverInicio()">← Volver</button>
-    
     <div class="container">
         <div class="deporte-icon" id="deporteIcon">🏉</div>
         <h1>Periodización del Entrenamiento</h1>
         <p class="subtitle" id="deporteNombre">Rugby</p>
-        
         <form id="loginForm">
             <div class="form-group">
                 <label for="usuario">Nombre de usuario</label>
@@ -147,93 +38,28 @@
             <p class="error" id="error">Usuario no encontrado o no pertenece a este deporte.</p>
         </form>
     </div>
-    
     <script>
         const API_URL = 'https://pef-2pzu.onrender.com/api';
-        
-        const deporteConfig = {
-            rugby: { nombre: 'Rugby', icon: '🏉', color: '#2d8b2d' },
-            futbol: { nombre: 'Fútbol', icon: '⚽', color: '#1e88e5' },
+        const deporteConfig = {rugby: { nombre: 'Rugby', icon: '🏉', color: '#2d8b2d' },
+            futbol: { nombre: 'Fútbol', icon: '⚽', color: '#1d0adb' },
             hockey: { nombre: 'Hockey', icon: '🏑', color: '#e91e63' },
             voley: { nombre: 'Voley', icon: '🏐', color: '#dc1c1c' },
             basquet: { nombre: 'Basquet', icon: '🏀', color: '#ff6f00' },
             handball: { nombre: 'Handball', icon: '🤾', color: '#00897b' },
-            natacion: { nombre: 'Natación', icon: '🏊', color: '#0277bd' },
+            natacion: { nombre: 'Natación', icon: '🏊', color: '#06adce' },
             tenis: { nombre: 'Tenis', icon: '🎾', color: '#ecf405' },
-            patin: { nombre: 'Patín', icon: '⛸️', color: '#6a1b9a' }
-        };
-        
-        function volverInicio() {
-            localStorage.removeItem('deporteSeleccionado');
-            window.location.href = 'index.html';
-        }
-        
-        function inicializar() {
-            const deporte = localStorage.getItem('deporteSeleccionado');
-            
-            if (!deporte || !deporteConfig[deporte]) {
-                window.location.href = 'index.html';
-                return;
-            }
-            
-            const config = deporteConfig[deporte];
-            document.getElementById('deporteIcon').textContent = config.icon;
-            document.getElementById('deporteNombre').textContent = config.nombre;
-            document.documentElement.style.setProperty('--color-primario', config.color);
-        }
-        
-        async function cargarUsuarios() {
-            try {
-                const response = await fetch(`${API_URL}/usuarios`);
-                if (!response.ok) {
-                    throw new Error('No se pudo cargar usuarios');
-                }
-                const usuarios = await response.json();
-                return usuarios;
-            } catch (error) {
-                console.error('Error al cargar usuarios:', error);
-                alert('Error: No se pudo conectar con el servidor.');
-                return [];
-            }
-        }
-        
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const nombreUsuario = document.getElementById('usuario').value.trim();
-            const errorMsg = document.getElementById('error');
-            const deporteActual = localStorage.getItem('deporteSeleccionado');
-            
-            const usuarios = await cargarUsuarios();
-            
-            if (usuarios.length === 0) {
-                errorMsg.textContent = 'Error al cargar la base de datos de usuarios';
-                errorMsg.style.display = 'block';
-                return;
-            }
-            
+            patin: { nombre: 'Patín', icon: '⛸️', color: '#6a1b9a' }};    
+        function volverInicio() {localStorage.removeItem('deporteSeleccionado');window.location.href = 'index.html';}
+        function inicializar() {const deporte = localStorage.getItem('deporteSeleccionado');
+            if (!deporte || !deporteConfig[deporte]) {window.location.href = 'index.html';return;}
+            const config = deporteConfig[deporte];document.getElementById('deporteIcon').textContent = config.icon;document.getElementById('deporteNombre').textContent = config.nombre;document.documentElement.style.setProperty('--color-primario', config.color);}
+        async function cargarUsuarios() {try {const response = await fetch(`${API_URL}/usuarios`);if (!response.ok) {throw new Error('No se pudo cargar usuarios');}
+                const usuarios = await response.json();return usuarios;} catch (error) {console.error('Error al cargar usuarios:', error);alert('Error: No se pudo conectar con el servidor.');return [];}}
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {e.preventDefault();const nombreUsuario = document.getElementById('usuario').value.trim();const errorMsg = document.getElementById('error');const deporteActual = localStorage.getItem('deporteSeleccionado');const usuarios = await cargarUsuarios();if (usuarios.length === 0) {errorMsg.textContent = 'Error al cargar la base de datos de usuarios';errorMsg.style.display = 'block';return;}
             const usuarioEncontrado = usuarios.find(u => 
                 u.nombre.toLowerCase() === nombreUsuario.toLowerCase() &&
-                u.deporte === deporteActual
-            );
-            
-            if (usuarioEncontrado) {
-                localStorage.setItem('usuarioActual', JSON.stringify(usuarioEncontrado));
-                
-                if (usuarioEncontrado.tipo === 'admin') {
-                    window.location.href = 'admin.html';
-                } else {
-                    window.location.href = 'usuarios.html';
-                }
-            } else {
-                errorMsg.textContent = 'Usuario no encontrado o no pertenece a este deporte.';
-                errorMsg.style.display = 'block';
-                setTimeout(() => {
-                    errorMsg.style.display = 'none';
-                }, 3000);
-            }
-        });
-        
+                u.deporte === deporteActual);if (usuarioEncontrado) {localStorage.setItem('usuarioActual', JSON.stringify(usuarioEncontrado));if (usuarioEncontrado.tipo === 'admin') {window.location.href = 'admin.html';} else {window.location.href = 'usuarios.html';}
+            } else {errorMsg.textContent = 'Usuario no encontrado o no pertenece a este deporte.';errorMsg.style.display = 'block';setTimeout(() => {errorMsg.style.display = 'none';}, 3000);}});
         inicializar();
     </script>
 </body>
