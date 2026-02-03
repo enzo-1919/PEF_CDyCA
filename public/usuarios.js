@@ -6,11 +6,11 @@ const deporteConfig = {
     rugby: { nombre: 'Rugby', color: '#2d8b2d', oscuro: '#1a5f1a' },
     futbol: { nombre: 'Fútbol', color: '#1e88e5', oscuro: '#0d47a1' },
     hockey: { nombre: 'Hockey', color: '#e91e63', oscuro: '#880e4f' },
-    voley: { nombre: 'Voley', color: '#dc1c1c', oscuro: '#c51414ff' },
+    voley: { nombre: 'Voley', color: '#dc1c1c', oscuro: '#51414f' },
     basquet: { nombre: 'Basquet', color: '#ff6f00', oscuro: '#e65100' },
     handball: { nombre: 'Handball', color: '#00897b', oscuro: '#004d40' },
     natacion: { nombre: 'Natación', color: '#0277bd', oscuro: '#01579b' },
-    tenis: { nombre: 'Tenis', color: '#ecf405', oscuro: '#ecf40577' },
+    tenis: { nombre: 'Tenis', color: '#ecf405', oscuro: '#ecf405' },
     patin: { nombre: 'Patín', color: '#6a1b9a', oscuro: '#4a148c' }
 };
 
@@ -143,29 +143,56 @@ function mostrarTabla(tabla) {
         titulo.textContent = lista.titulo;
         listaDiv.appendChild(titulo);
         
+        const tableWrapper = document.createElement('div');
+        tableWrapper.style.overflowX = 'auto';
+        tableWrapper.style.maxWidth = '100%';
+        tableWrapper.style.WebkitOverflowScrolling = 'touch';
+        
         const table = document.createElement('table');
+        table.style.minWidth = '1200px';
+        
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         
         const thEjercicio = document.createElement('th');
         thEjercicio.textContent = 'Ejercicio';
+        thEjercicio.style.position = 'sticky';
+        thEjercicio.style.left = '0';
+        thEjercicio.style.background = 'var(--color-oscuro)';
+        thEjercicio.style.zIndex = '10';
         headerRow.appendChild(thEjercicio);
         
         // Columnas para semanas 1-6
         for (let i = 1; i <= 6; i++) {
             const th = document.createElement('th');
+            th.colSpan = 6;
             th.textContent = `Semana ${i}`;
             headerRow.appendChild(th);
         }
         
-        // Columnas para t1, t2, t3
-        ['t1', 't2', 't3'].forEach(t => {
-            const th = document.createElement('th');
-            th.textContent = t.toUpperCase();
-            headerRow.appendChild(th);
-        });
-        
         thead.appendChild(headerRow);
+        
+        // Segunda fila de headers
+        const subHeaderRow = document.createElement('tr');
+        
+        const thEjercicioSub = document.createElement('th');
+        thEjercicioSub.textContent = '';
+        thEjercicioSub.style.position = 'sticky';
+        thEjercicioSub.style.left = '0';
+        thEjercicioSub.style.background = 'var(--color-oscuro)';
+        thEjercicioSub.style.zIndex = '10';
+        subHeaderRow.appendChild(thEjercicioSub);
+        
+        for (let i = 1; i <= 6; i++) {
+            ['Series', 'Reps', 'Peso', 't1', 't2', 't3'].forEach(label => {
+                const th = document.createElement('th');
+                th.textContent = label;
+                th.style.fontSize = '11px';
+                subHeaderRow.appendChild(th);
+            });
+        }
+        
+        thead.appendChild(subHeaderRow);
         table.appendChild(thead);
         
         const tbody = document.createElement('tbody');
@@ -176,40 +203,50 @@ function mostrarTabla(tabla) {
             const tdNombre = document.createElement('td');
             tdNombre.className = 'ejercicio-nombre';
             tdNombre.textContent = ejercicio.nombre;
+            tdNombre.style.position = 'sticky';
+            tdNombre.style.left = '0';
+            tdNombre.style.background = 'white';
+            tdNombre.style.zIndex = '5';
             row.appendChild(tdNombre);
             
             // Datos de semanas 1-6
             for (let i = 1; i <= 6; i++) {
-                const td = document.createElement('td');
                 const semanaKey = `semana${i}`;
                 const datos = ejercicio[semanaKey];
                 
-                td.className = 'datos-semana';
-                td.innerHTML = `
-                    <strong>Series:</strong> ${datos.series}<br>
-                    <strong>Reps:</strong> ${datos.repeticiones}<br>
-                    <strong>Peso:</strong> ${datos.peso} kg`;
-                row.appendChild(td);
-            }
-            
-            // Datos de t1, t2, t3
-            ['t1', 't2', 't3'].forEach(t => {
-                const td = document.createElement('td');
-                const datos = ejercicio[t];
+                // Series
+                const tdSeries = document.createElement('td');
+                tdSeries.className = 'datos-semana';
+                tdSeries.textContent = datos.series;
+                row.appendChild(tdSeries);
                 
-                td.className = 'datos-semana';
-                td.innerHTML = `
-                    <strong>Series:</strong> ${datos.series}<br>
-                    <strong>Reps:</strong> ${datos.repeticiones}<br>
-                    <strong>Peso:</strong> ${datos.peso} kg`;
-                row.appendChild(td);
-            });
+                // Reps
+                const tdReps = document.createElement('td');
+                tdReps.className = 'datos-semana';
+                tdReps.textContent = datos.repeticiones;
+                row.appendChild(tdReps);
+                
+                // Peso
+                const tdPeso = document.createElement('td');
+                tdPeso.className = 'datos-semana';
+                tdPeso.textContent = datos.peso + ' kg';
+                row.appendChild(tdPeso);
+                
+                // t1, t2, t3
+                ['t1', 't2', 't3'].forEach(t => {
+                    const td = document.createElement('td');
+                    td.className = 'datos-semana';
+                    td.textContent = datos[t] || '-';
+                    row.appendChild(td);
+                });
+            }
             
             tbody.appendChild(row);
         });
         
         table.appendChild(tbody);
-        listaDiv.appendChild(table);
+        tableWrapper.appendChild(table);
+        listaDiv.appendChild(tableWrapper);
         contenedor.appendChild(listaDiv);
     });
     
